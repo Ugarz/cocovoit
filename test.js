@@ -1,7 +1,7 @@
 const assert = require("assert");
 const should = require('should')
 
-const { createPassenger, createCocovoit } = require("./core/covoit.js").default;
+const { createPassenger, createCocovoit } = require("./core/covoit.js");
 
 
 describe("Testing passenger creation", function() {
