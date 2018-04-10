@@ -1,0 +1,16 @@
+{
+  "name": "cocovoit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "covoit.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^5.0.5"
+  }
+}
