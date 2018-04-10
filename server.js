@@ -1,4 +1,4 @@
-const { createPassenger, createCocovoit } = require("./core/covoit.js");
+const { createPassenger, createCocovoit } = require("./core/covoit.js").default;
 
 const options = {
   kms: 35.5,

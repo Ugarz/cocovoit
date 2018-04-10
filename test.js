@@ -1,7 +1,7 @@
 const assert = require("assert");
 const should = require('should')
 
-const { createPassenger, createCocovoit } = require("./core/covoit.js");
+const { createPassenger, createCocovoit } = require("./core/covoit.js").default;
 
 
 describe("Testing passenger creation", function() {
@@ -33,7 +33,7 @@ describe("Testing Cocovoit", function() {
     uPassenger.should.have.property("name").with.lengthOf(3);
     uPassenger.number_per_week.should.be.exactly(5).and.be.a.Number();
   });
-  
+
   it("Should create Cocovoit", function() {
     const options = {
         kms: 35.5,
