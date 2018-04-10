@@ -9,6 +9,7 @@ class Covoit {
     this.kms = props.kms;
     this.price_per_kms = props.price_per_kms;
     this.comeBack = props.comeBack || false;
+    this.conductor = props.conductor || 'ugo';
   }
   getDayPrice() {
       if(this.comeBack){
@@ -30,7 +31,7 @@ class Covoit {
  * Create a Person
  * @param {object} with data
  */
-class Person {
+class Passenger {
     constructor(name, number_per_week, comeback) {
         this.name = name;
         this.number_per_week = number_per_week;
@@ -38,22 +39,25 @@ class Person {
     }
 }
 
+/**
+ * Create a Passenger
+ * @param {string} name 
+ * @param {integer} number_per_week 
+ * @param {boolean} comeback 
+ */
+function createPassenger(name, number_per_week, comeback) {
+  return new Passenger(name, number_per_week, comeback);
+}
 
-// Créer une personne
-const uPassenger = new Person('ugo', 5, true);
-const cPassenger = new Person('camille', 3, true);
-const jPassenger = new Person('julien', 2, true);
+/**
+ * Create a cocovoit
+ * @param {object} options 
+ */
+function createCocovoit(options) {
+  return new Covoit(options);
+}
 
-// Créer un covoit
-const cocovoit = new Covoit({
-    kms: 35.5,
-    price_per_kms: 1.62,
-    passengers: ['ugo', 'camille', 'julien'],
-    comeBack: true
-});
-console.log('** Cocovoit', cocovoit);
-
-// Inviter des personnes
-
-// Calculer le montant
-console.log("Price a day", cocovoit.getDayPrice());
+module.exports = {
+  createPassenger,
+  createCocovoit
+};

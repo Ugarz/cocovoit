@@ -4,13 +4,16 @@
   "description": "",
   "main": "covoit.js",
   "scripts": {
-    "test": "mocha"
+    "start": "nodemon server",
+    "test": "mocha",
+    "test:live": "mocha -w"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "^5.0.5"
+    "mocha": "^5.0.5",
+    "should": "^13.2.1"
   }
 }
