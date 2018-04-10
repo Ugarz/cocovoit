@@ -1,7 +1,7 @@
 {
   "name": "cocovoit",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple app to save time, sharing the road",
   "main": "covoit.js",
   "scripts": {
     "start": "nodemon server",
@@ -9,7 +9,7 @@
     "test:live": "mocha -w"
   },
   "keywords": [],
-  "author": "",
+  "author": "ugo.arzur@gmail.com",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
