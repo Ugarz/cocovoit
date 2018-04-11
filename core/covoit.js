@@ -1,3 +1,7 @@
+const find = require('lodash/find')
+const isArray = require("lodash/isArray");
+
+
 /**
  * Covoit class
  * @param {object} an object with data
@@ -9,21 +13,33 @@ class Covoit {
     this.kms = props.kms;
     this.price_per_kms = props.price_per_kms;
     this.comeBack = props.comeBack || false;
-    this.conductor = props.conductor || 'ugo';
+    this.conductor = props.conductor || "ugo";
   }
-  getDayPrice() {
-      if(this.comeBack){
-          this.kms = this.kms * 2;
-          console.log(`Come back true : ${this.kms}kms`)
-          this.total = this.kms / this.price_per_kms;
-          return this.total;
-        }
-        console.log(`Come back false : ${this.kms}kms`)
-        this.total = this.kms / this.price_per_kms;
-        return this.total;
+  getPassengers(){
+    return this.passengers;
+  }
+  getTotalPrice() {
+    if (this.comeBack) {
+      this.kms = this.kms * 2;
+      console.log(`Total distance : ${this.kms}kms`);
+      this.total = this.kms / this.price_per_kms;
+      return this.total;
+    }
+    console.log(`Total distance : ${this.kms}kms`);
+    this.total = this.kms / this.price_per_kms;
+    return this.total;
   }
   calc(props) {
-      return props.number_per_week * this.price_per_kms;
+    return props.number_per_week * this.price_per_kms;
+  }
+  addPassenger(passengers) {
+    if(isArray(passengers)){
+      return passengers.map(passenger => this.passengers.push(passenger))
+    }
+    return this.passengers[0] = passengers
+  }
+  resetPassengers(){
+    return this.passengers = [];
   }
 }
 

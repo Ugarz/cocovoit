@@ -1,7 +1,8 @@
 # WIP simple covoit app
 
-- [Should Documentation](https://github.com/shouldjs/should.js)
 - [Mocha Documentation](https://mochajs.org/)
+- [Shouldjs - Site Documentation](https://shouldjs.github.io/#assertion-be)
+- [Shouldjs - Github Documentation](https://github.com/shouldjs/should.js)
 
 ```bash
 npm start          // Run the server
