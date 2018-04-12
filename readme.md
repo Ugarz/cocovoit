@@ -4,6 +4,9 @@
 - [Shouldjs - Site Documentation](https://shouldjs.github.io/#assertion-be)
 - [Shouldjs - Github Documentation](https://github.com/shouldjs/should.js)
 
+sources 
+- [Calcul selon caroulepourvous.com/](http://www.caroulepourvous.com/info-4.php)
+
 ```bash
 npm start          // Run the server
 npm test           // Run the tests

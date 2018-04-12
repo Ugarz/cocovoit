@@ -1,5 +1,6 @@
 const assert = require("assert");
 const should = require('should')
+const isEmpty = require('lodash/isEmpty')
 
 const {
   createPassenger,
@@ -32,7 +33,7 @@ describe("Basic tests", function() {
     cocovoit.should.have.property("price_per_kms", options.price_per_kms);
     cocovoit.should.have.property("comeBack", options.comeBack);
     cocovoit.should.have.property("conductor", options.conductor);
-    cocovoit.should.have.property("kms", options.kms);
+    cocovoit.should.have.property("kms", options.kms * 2);
   });
   
   it("Should create and add a passenger to the cocovoit", function() {
@@ -43,11 +44,13 @@ describe("Basic tests", function() {
       conductor: 'ugo'
     }
     const cocovoit = createCocovoit(options);
+
+    // Create a passenger
     const uPassenger = createPassenger("ugo", 5, true);
-    
-    cocovoit.addPassenger(uPassenger)
+    cocovoit.addPassengers(uPassenger)
     const passengersList = cocovoit.getPassengers();
     
+    // Assert the passenger has been pushed to passengers list
     assert.deepEqual(passengersList[0], uPassenger);
     
     passengersList[0].should.have.property("name");
@@ -66,7 +69,7 @@ describe("Basic tests", function() {
     const uPassenger = createPassenger("ugo", 5, true);
     const cPassenger = createPassenger("camille", 3, true);
 
-    cocovoit.addPassenger([uPassenger, cPassenger]);
+    cocovoit.addPassengers([uPassenger, cPassenger]);
     const passengersList = cocovoit.getPassengers();
 
     assert.deepEqual(passengersList, [uPassenger, cPassenger]);
@@ -83,7 +86,7 @@ describe("Basic tests", function() {
     const uPassenger = createPassenger("ugo", 5, true);
     const cPassenger = createPassenger("camille", 3, true);
 
-    cocovoit.addPassenger([uPassenger, cPassenger]);
+    cocovoit.addPassengers([uPassenger, cPassenger]);
     let passengersList = cocovoit.getPassengers();
     
     assert.deepEqual(passengersList, [uPassenger, cPassenger]);
@@ -105,12 +108,33 @@ describe("Basic tests", function() {
 
 
 describe("Operation tests", function() {
-  it("Should get full price of current cocovoit", function() {
-    const options = { kms: 35.5, price_per_kms: 1.62, comeBack: true, conductor: "ugo" };
+  it("Should give the amount per person", function() {
+    // 5.2 x 328 / 100 * 1.35 / 3
+    // PRIXparPASSAGER = CONSO x NKM / 100 * PRIXduL / NBOCCUPANTS
+    const options = {
+      kms: 35.5,
+      price_per_kms: 1.62,
+      passengers: [{name: 'camille'},{name: 'julien'}],
+      comeBack: true,
+      conductor: "ugo",
+      car: {
+        model: "308",
+        brand: "Peugeot",
+        consumption: 7,
+      }
+    };
     const cocovoit = createCocovoit(options);
-    const totalPrice = cocovoit.getTotalPrice()
+    const pricePerPassenger = cocovoit.calc();
+    const cocovoitParameters = cocovoit.getCocovoitParameters();
+    const personsWhoPay = options.passengers.length === 0 ? 1 : options.passengers.length + 1;
 
-    totalPrice.should.be.aboveOrEqual(0);
-    totalPrice.should.be.belowOrEqual(44);
+    const shouldPay = () => {
+      let fullKms = options.kms;
+      if (options.comeBack) {
+        fullKms = options.kms * 2
+      }
+      return (options.car.consumption * fullKms) / 100 * options.price_per_kms / personsWhoPay;
+    }
+    pricePerPassenger.should.be.equal(shouldPay());
   });
 });

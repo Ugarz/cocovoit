@@ -10,36 +10,32 @@ class Covoit {
   constructor(props) {
     this.passengers = props.passengers || [];
     this.total = 0;
-    this.kms = props.kms;
+    this.kms = props.comeBack ? props.kms * 2 : props.kms;
     this.price_per_kms = props.price_per_kms;
     this.comeBack = props.comeBack || false;
     this.conductor = props.conductor || "ugo";
+    this.car = props.car || {}
   }
-  getPassengers(){
+  getCocovoitParameters() {
+    return this;
+  }
+  getPassengers() {
     return this.passengers;
   }
-  getTotalPrice() {
-    if (this.comeBack) {
-      this.kms = this.kms * 2;
-      console.log(`Total distance : ${this.kms}kms`);
-      this.total = this.kms / this.price_per_kms;
-      return this.total;
+  calc() {
+    // 5.2 x 328 / 100 * 1.35 / 3
+    // PRIXparPASSAGER = CONSO x NKM / 100 * PRIXduL / NBOCCUPANTS
+    const personsWhoPay = this.passengers.length === 0 ? 1 : this.passengers.length + 1;
+    return this.car.consumption * this.kms / 100 * this.price_per_kms / personsWhoPay;
+  }
+  addPassengers(passengers) {
+    if (isArray(passengers)) {
+      return passengers.map(passenger => this.passengers.push(passenger));
     }
-    console.log(`Total distance : ${this.kms}kms`);
-    this.total = this.kms / this.price_per_kms;
-    return this.total;
+    return (this.passengers[0] = passengers);
   }
-  calc(props) {
-    return props.number_per_week * this.price_per_kms;
-  }
-  addPassenger(passengers) {
-    if(isArray(passengers)){
-      return passengers.map(passenger => this.passengers.push(passenger))
-    }
-    return this.passengers[0] = passengers
-  }
-  resetPassengers(){
-    return this.passengers = [];
+  resetPassengers() {
+    return (this.passengers = []);
   }
 }
 
