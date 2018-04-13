@@ -1,4 +1,7 @@
-const { createPassenger, createCocovoit } = require("./core/covoit.js");
+'use strict'
+
+const Coco = require("./core/covoit");
+const Carpooling = new Coco();
 
 const options = {
   kms: 35.5,
@@ -13,12 +16,15 @@ const options = {
   }
 };
 
-const p = createPassenger('ugo', 5, true);
-const c = createCocovoit(options);
+const journey = Carpooling.createJourney(options);
+const passenger = Carpooling.createPassenger('ugo', 5, true);
 
-c.addPassengers(p)
-c.getPassengers()
+journey.addPassengers(passenger);
 
-console.log('User', p)
-console.log('Cocovoit', c)
-console.log(c.calc())
+const numberOfPassengers = journey.getPassengers();
+const pricePerPassenger = journey.calculate();
+
+console.log('User', passenger)
+console.log("Number of passengers", numberOfPassengers);
+console.log("Price per passenger", pricePerPassenger);
+console.log("journey", journey);

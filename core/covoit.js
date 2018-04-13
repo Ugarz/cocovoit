@@ -1,12 +1,23 @@
 const find = require('lodash/find')
 const isArray = require("lodash/isArray");
 
+/**
+ * Create a Person
+ * @param {object} with data
+ */
+class Passenger {
+    constructor(name, number_per_week, comeback) {
+        this.name = name;
+        this.number_per_week = number_per_week;
+        this.comeback = comeback;
+    }
+}
 
 /**
- * Covoit class
+ * Journey class
  * @param {object} an object with data
  */
-class Covoit {
+class Journey {
   constructor(props) {
     this.passengers = props.passengers || [];
     this.total = 0;
@@ -22,7 +33,7 @@ class Covoit {
   getPassengers() {
     return this.passengers;
   }
-  calc() {
+  calculate() {
     // 5.2 x 328 / 100 * 1.35 / 3
     // PRIXparPASSAGER = CONSO x NKM / 100 * PRIXduL / NBOCCUPANTS
     const personsWhoPay = this.passengers.length === 0 ? 1 : this.passengers.length + 1;
@@ -40,36 +51,19 @@ class Covoit {
 }
 
 /**
- * Create a Person
- * @param {object} with data
+ * 
  */
-class Passenger {
-    constructor(name, number_per_week, comeback) {
-        this.name = name;
-        this.number_per_week = number_per_week;
-        this.comeback = comeback;
-    }
+class Cocovoit {
+  createPassenger(name, number_per_week, comeback) {
+    return new Passenger(name, number_per_week, comeback);
+  }
+  createJourney(options) {
+    return new Journey(options);
+  }
 }
 
-/**
- * Create a Passenger
- * @param {string} name 
- * @param {integer} number_per_week 
- * @param {boolean} comeback 
- */
-function createPassenger(name, number_per_week, comeback) {
-  return new Passenger(name, number_per_week, comeback);
+function createCocovoit(){
+  return new Cocovoit()
 }
 
-/**
- * Create a cocovoit
- * @param {object} options 
- */
-function createCocovoit(options) {
-  return new Covoit(options);
-}
-
-module.exports = {
-  createPassenger,
-  createCocovoit
-};
+module.exports = createCocovoit;

@@ -1,10 +1,11 @@
 {
   "name": "cocovoit",
   "version": "1.0.0",
-  "description": "A simple app to save time, sharing the road",
+  "description": "A simple lib to manage share caring, share the road",
   "main": "covoit.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "node server",
+    "dev": "nodemon server",
     "test": "mocha",
     "test:live": "mocha -w"
   },

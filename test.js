@@ -2,16 +2,17 @@ const assert = require("assert");
 const should = require('should')
 const isEmpty = require('lodash/isEmpty')
 
-const {
-  createPassenger,
-  createCocovoit
-} = require("./core/covoit.js");
+
+const clib = require('./core/covoit')
+const P = new clib();
+
+console.log('P', P);
 
 describe("Basic tests", function() {
   it("Should create passengers", function() {
-    const uPassenger = createPassenger("ugo", 5, true);
-    const cPassenger = createPassenger("camille", 3, true);
-    const jPassenger = createPassenger("julien", 2, true);
+    const uPassenger = P.createPassenger("ugo", 5, true);
+    const cPassenger = P.createPassenger("camille", 3, true);
+    const jPassenger = P.createPassenger("julien", 2, true);
 
     cPassenger.should.have.property("name", "camille");
     jPassenger.should.have.property("name", "julien");
@@ -28,7 +29,7 @@ describe("Basic tests", function() {
         comeBack: true,
         conductor: 'ugo'
     }
-    const cocovoit = createCocovoit(options);
+    const cocovoit = P.createJourney(options);
     cocovoit.should.have.property("passengers", options.passengers);
     cocovoit.should.have.property("price_per_kms", options.price_per_kms);
     cocovoit.should.have.property("comeBack", options.comeBack);
@@ -43,10 +44,10 @@ describe("Basic tests", function() {
       comeBack: true,
       conductor: 'ugo'
     }
-    const cocovoit = createCocovoit(options);
+    const cocovoit = P.createJourney(options);
 
     // Create a passenger
-    const uPassenger = createPassenger("ugo", 5, true);
+    const uPassenger = P.createPassenger("ugo", 5, true);
     cocovoit.addPassengers(uPassenger)
     const passengersList = cocovoit.getPassengers();
     
@@ -64,10 +65,10 @@ describe("Basic tests", function() {
   
   it("Should create and add a bunch of passengers to the cocovoit", function() {
     const options = { kms: 35.5, price_per_kms: 1.62, comeBack: true, conductor: "ugo" };
-    const cocovoit = createCocovoit(options);
+    const cocovoit = P.createJourney(options);
 
-    const uPassenger = createPassenger("ugo", 5, true);
-    const cPassenger = createPassenger("camille", 3, true);
+    const uPassenger = P.createPassenger("ugo", 5, true);
+    const cPassenger = P.createPassenger("camille", 3, true);
 
     cocovoit.addPassengers([uPassenger, cPassenger]);
     const passengersList = cocovoit.getPassengers();
@@ -81,10 +82,10 @@ describe("Basic tests", function() {
   
   it("Should reset the passengers of current cocovoit", function() {
     const options = { kms: 35.5, price_per_kms: 1.62, comeBack: true, conductor: "ugo" };
-    const cocovoit = createCocovoit(options);
+    const cocovoit = P.createJourney(options);
 
-    const uPassenger = createPassenger("ugo", 5, true);
-    const cPassenger = createPassenger("camille", 3, true);
+    const uPassenger = P.createPassenger("ugo", 5, true);
+    const cPassenger = P.createPassenger("camille", 3, true);
 
     cocovoit.addPassengers([uPassenger, cPassenger]);
     let passengersList = cocovoit.getPassengers();
@@ -123,8 +124,8 @@ describe("Operation tests", function() {
         consumption: 7,
       }
     };
-    const cocovoit = createCocovoit(options);
-    const pricePerPassenger = cocovoit.calc();
+    const cocovoit = P.createJourney(options);
+    const pricePerPassenger = cocovoit.calculate();
     const cocovoitParameters = cocovoit.getCocovoitParameters();
     const personsWhoPay = options.passengers.length === 0 ? 1 : options.passengers.length + 1;
 
