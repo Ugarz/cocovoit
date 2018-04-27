@@ -46,6 +46,7 @@ See the `server.js` to see more on how to play with the library.
 git clone git@github.com:Ugarz/cocovoit.git
 cd cocovoit
 npm start          // Run the server
+npm run dev        // Run the dev server (require nodemon in global)
 npm test           // Run the tests
 npm run test:live  // Run the tests, live
 ```

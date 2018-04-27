@@ -4,8 +4,8 @@
   "description": "A simple lib to manage share caring, share the road",
   "main": "covoit.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server",
+    "start": "node server.js",
+    "dev": "./node_modules/.bin/nodemon server.js",
     "test": "mocha",
     "test:live": "mocha -w"
   },
@@ -16,6 +16,7 @@
   "devDependencies": {
     "lodash": "^4.17.5",
     "mocha": "^5.0.5",
+    "nodemon": "^1.17.3",
     "should": "^13.2.1"
   }
 }
