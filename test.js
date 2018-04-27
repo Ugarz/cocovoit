@@ -115,20 +115,35 @@ describe("Operation tests", function() {
     const options = {
       kms: 35.5,
       price_per_kms: 1.62,
-      passengers: [{name: 'camille'},{name: 'julien'}],
+      passengers: [],
       comeBack: true,
-      conductor: "ugo",
+      // conductor: "ugo",
       car: {
         model: "308",
         brand: "Peugeot",
         consumption: 7,
       }
     };
+    // Create passengers
+    const uPassenger = P.createPassenger("ugo", 5, true);
+    const cPassenger = P.createPassenger("camille", 3, true);
+    const jPassenger = P.createPassenger("julien", 2, true);
+    
+    // Create journey
     const cocovoit = P.createJourney(options);
+    
+    // Add passengers to the journey
+    cocovoit.addPassengers([uPassenger, cPassenger, jPassenger]);
+    let passengersList = cocovoit.getPassengers();
+    
+    // Test the passengers list
+    assert.deepEqual(passengersList, [uPassenger, cPassenger, jPassenger]);
+    
+    // Test the passengers list
     const pricePerPassenger = cocovoit.calculate();
     const cocovoitParameters = cocovoit.getCocovoitParameters();
     const personsWhoPay = options.passengers.length === 0 ? 1 : options.passengers.length + 1;
-
+    
     const shouldPay = () => {
       let fullKms = options.kms;
       if (options.comeBack) {
@@ -136,6 +151,26 @@ describe("Operation tests", function() {
       }
       return (options.car.consumption * fullKms) / 100 * options.price_per_kms / personsWhoPay;
     }
+
+    console.log(pricePerPassenger);
     pricePerPassenger.should.be.equal(shouldPay());
+
   });
+  // it("Should give the amount per person * number of day", function() {
+
+  //   const options = { kms: 35.5, price_per_kms: 1.62, passengers: [{ name: "camille" }, { name: "julien" }], comeBack: true, conductor: "ugo", car: { model: "308", brand: "Peugeot", consumption: 7 } };
+  //   const cocovoit = P.createJourney(options);
+  //   const pricePerPassenger = cocovoit.calculate();
+  //   const cocovoitParameters = cocovoit.getCocovoitParameters();
+  //   const personsWhoPay = options.passengers.length === 0 ? 1 : options.passengers.length + 1;
+
+  //   const shouldPay = (numberOfDays) => {
+  //     let fullKms = options.kms;
+  //     if (options.comeBack) {
+  //       fullKms = options.kms * 2;
+  //     }
+  //     return options.car.consumption * fullKms / 100 * options.price_per_kms / personsWhoPay;
+  //   };
+  //   pricePerPassenger.should.be.equal(shouldPay() * 4);
+  // });
 });

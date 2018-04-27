@@ -1,5 +1,6 @@
 const find = require('lodash/find')
 const isArray = require("lodash/isArray");
+const random = require("lodash/random");
 
 /**
  * Create a Person
@@ -24,7 +25,7 @@ class Journey {
     this.kms = props.comeBack ? props.kms * 2 : props.kms;
     this.price_per_kms = props.price_per_kms;
     this.comeBack = props.comeBack || false;
-    this.conductor = props.conductor || "ugo";
+    this.conductor = props.conductor || this.passengers[random(0, this.passengers.length)];
     this.car = props.car || {}
   }
   getCocovoitParameters() {
