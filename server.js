@@ -28,3 +28,27 @@ console.log('User', passenger)
 console.log("Number of passengers", numberOfPassengers);
 console.log("Price per passenger", pricePerPassenger);
 console.log("journey", journey);
+
+// class journey {
+//   constructor(props){
+//     this.comeBack = props.comeBack;
+//     this.kms = props.kms;
+//   }
+//   set currency(devise){
+//     return this.devise = devise;
+//   }
+//   get bob(){
+//     return this.kms;
+//   }
+// }
+
+// const j = new journey({
+//   comeBack : true,
+//   kms : 30,
+//   currency: 'euro'
+// })
+
+// j.currency = 'euros'
+
+// console.log('devise', j.devise)
+// console.log('bob', j)
