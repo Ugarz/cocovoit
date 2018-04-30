@@ -1,5 +1,5 @@
-# WIP simple covoit Lib
-This is a simple test of a carpooling library.
+# Simple carpooling library
+This is a simple test of a carpooling library, built with node and some ♥.
 
 - [Mocha Documentation](https://mochajs.org/)
 - [Shouldjs - Site Documentation](https://shouldjs.github.io/#assertion-be)

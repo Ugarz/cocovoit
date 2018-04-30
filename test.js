@@ -9,9 +9,9 @@ const P = new clib();
 
 describe("Basic tests", function() {
   it("Should create passengers", function() {
-    const uPassenger = P.createPassenger("ugo", 5, true);
-    const cPassenger = P.createPassenger("camille", 3, true);
-    const jPassenger = P.createPassenger("julien", 2, true);
+    const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
+    const cPassenger = P.createPassenger({ name: "camille" }, { number_per_week: 3, comeBack: true });
+    const jPassenger = P.createPassenger({ name: "julien" }, { number_per_week: 2, comeBack: true });
 
     cPassenger.should.have.property("name", "camille");
     jPassenger.should.have.property("name", "julien");
@@ -22,6 +22,7 @@ describe("Basic tests", function() {
 
   it("Should create Cocovoit", function() {
     const options = {
+        smoking : false,
         kms: 35.5,
         price_per_kms: 1.62,
         passengers: ['ugo', 'camille', 'julien'],
@@ -38,6 +39,7 @@ describe("Basic tests", function() {
   
   it("Should create and add a passenger to the cocovoit", function() {
     const options = {
+      smoking : false,
       kms: 35.5,
       price_per_kms: 1.62,
       comeBack: true,
@@ -46,7 +48,7 @@ describe("Basic tests", function() {
     const cocovoit = P.createJourney(options);
 
     // Create a passenger
-    const uPassenger = P.createPassenger("ugo", 5, true);
+    const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
     cocovoit.addPassengers(uPassenger)
     const passengersList = cocovoit.passengersList;
     
@@ -55,7 +57,7 @@ describe("Basic tests", function() {
     
     passengersList[0].should.have.property("name");
     passengersList[0].should.have.property("number_per_week");
-    passengersList[0].should.have.property("comeback");
+    passengersList[0].should.have.property("comeBack");
     
     uPassenger.should.have.property("name", "ugo");
     uPassenger.should.have.property("name").with.lengthOf(3);
@@ -63,11 +65,17 @@ describe("Basic tests", function() {
   });
   
   it("Should create and add a bunch of passengers to the cocovoit", function() {
-    const options = { kms: 35.5, price_per_kms: 1.62, comeBack: true, conductor: "ugo" };
+    const options = {
+      smoking : false,
+      kms: 35.5,
+      price_per_kms: 1.62,
+      comeBack: true,
+      conductor: "ugo"
+    };
     const cocovoit = P.createJourney(options);
 
-    const uPassenger = P.createPassenger("ugo", 5, true);
-    const cPassenger = P.createPassenger("camille", 3, true);
+    const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
+    const cPassenger = P.createPassenger({ name: "camille" }, { number_per_week: 3, comeBack: true });
 
     cocovoit.addPassengers([uPassenger, cPassenger]);
     const passengersList = cocovoit.passengersList;
@@ -76,15 +84,21 @@ describe("Basic tests", function() {
 
     passengersList[0].should.have.property("name");
     passengersList[0].should.have.property("number_per_week");
-    passengersList[0].should.have.property("comeback");
+    passengersList[0].should.have.property("comeBack");
   });
   
   it("Should reset the passengers of current cocovoit", function() {
-    const options = { kms: 35.5, price_per_kms: 1.62, comeBack: true, conductor: "ugo" };
+    const options = {
+      smoking : false,
+      kms: 35.5,
+      price_per_kms: 1.62,
+      comeBack: true,
+      conductor: "ugo"
+    };
     const cocovoit = P.createJourney(options);
 
-    const uPassenger = P.createPassenger("ugo", 5, true);
-    const cPassenger = P.createPassenger("camille", 3, true);
+    const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
+    const cPassenger = P.createPassenger({ name: "camille" }, { number_per_week: 3, comeBack: true });
 
     cocovoit.addPassengers([uPassenger, cPassenger]);
     let passengersList = cocovoit.passengersList;
@@ -93,7 +107,7 @@ describe("Basic tests", function() {
     
     passengersList[0].should.have.property("name");
     passengersList[0].should.have.property("number_per_week");
-    passengersList[0].should.have.property("comeback");
+    passengersList[0].should.have.property("comeBack");
     
     cocovoit.resetPassengers();
     
@@ -101,7 +115,7 @@ describe("Basic tests", function() {
     
     passengersList.should.not.have.property("name");
     passengersList.should.not.have.property("number_per_week");
-    passengersList.should.not.have.property("comeback");
+    passengersList.should.not.have.property("comeBack");
   });
 });
 
@@ -112,6 +126,7 @@ describe("Operation tests", function() {
     // 5.2 x 328 / 100 * 1.35 / 3
     // PRIXparPASSAGER = CONSO x NKM / 100 * PRIXduL / NBOCCUPANTS
     const options = {
+      smoking : false,
       kms: 35.5,
       price_per_kms: 1.62,
       passengers: [],
@@ -125,9 +140,9 @@ describe("Operation tests", function() {
     };
 
     // Create passengers
-    const uPassenger = P.createPassenger("ugo", 5, true);
-    const cPassenger = P.createPassenger("camille", 3, true);
-    const jPassenger = P.createPassenger("julien", 2, true);
+    const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
+    const cPassenger = P.createPassenger({ name: "camille" }, { number_per_week: 3, comeBack: true });
+    const jPassenger = P.createPassenger({ name: "julien" }, { number_per_week: 2, comeBack: true });
 
     // Create journey
     const cocovoit = P.createJourney(options);
@@ -141,10 +156,7 @@ describe("Operation tests", function() {
     
     // Test the passengers list
     const pricePerPassenger = cocovoit.calculate();
-    
-    console.log('CALCULATE', pricePerPassenger)
-    console.log('numberOfPayers', cocovoit.numberOfPayers)
-    console.log('cocovoitParameters', cocovoit)
+    const numberOfPayers = cocovoit.numberOfPayers;
 
     const shouldPay = () => {
       let fullKms = options.kms;
@@ -155,40 +167,62 @@ describe("Operation tests", function() {
     pricePerPassenger.should.be.equal(shouldPay());
   });
 
-  // it("Should give the amount per person * number of day", function() {
-  //   const options = {
-  //     kms: 35.5,
-  //     price_per_kms: 1.62,
-  //     passengers: [],
-  //     comeBack: true,
-  //     conductor: "ugo",
-  //     car: {
-  //       model: "308",
-  //       brand: "Peugeot",
-  //       consumption: 7,
-  //     }
-  //   };
+  it("Should give the amount per person * number of day", function() {
+    const options = {
+      smoking : false,
+      kms: 35.5,
+      price_per_kms: 1.62,
+      passengers: [],
+      comeBack: true,
+      conductor: "ugo",
+      car: {
+        model: "308",
+        brand: "Peugeot",
+        consumption: 7,
+      }
+    };
     
-  //   const uPassenger = P.createPassenger("ugo", 5, true);
+    const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
+    const jPassenger = P.createPassenger({ name: "julien" }, { number_per_week: 2, comeBack: true });
 
-  //   const cocovoit = P.createJourney(options);
+    const cocovoit = P.createJourney(options);
+    
+    cocovoit.addPassengers([uPassenger, jPassenger]);
+    
+    const pricePerPassenger = cocovoit.calculate();
+    const uPrice = cocovoit.calculate();
+    const jPrice = cocovoit.calculate();
+    
+    const numberOfPayers = cocovoit.numberOfPayers;
+    
+    const shouldPay = (passenger, price) => {
+      let fullKms = options.kms;
+      if (options.comeBack) {
+        fullKms = options.kms * 2;
+      }
+      if(passenger){
+        return (options.car.consumption * fullKms / 100 * options.price_per_kms / numberOfPayers) * passenger.number_per_week;
+      }
+      return options.car.consumption * fullKms / 100 * options.price_per_kms / numberOfPayers;
+    };
+    
+    // console.log('uPrice', uPrice)
+    // console.log('jPrice', jPrice)
 
-  //   cocovoit.addPassengers(uPassenger);
+    // console.log(`uPrice ${uPassenger.number_per_week} fois par semaine`, uPrice * uPassenger.number_per_week)
+    // console.log(`jPrice ${jPassenger.number_per_week} fois par semaine`, jPrice * jPassenger.number_per_week)
     
-  //   const pricePerPassenger = cocovoit.calculate();    
+    // console.log('numberOfPayers', numberOfPayers)
+    // console.log('Each passenger should pay', pricePerPassenger)
     
-  //   const numberOfPayers = options.passengers.length === 0 ? 1 : options.passengers.length + 1;
-    
-  //   console.log(cocovoit.numberOfPayers);
-    
-  //   const shouldPay = (numberOfDays) => {
-  //     let fullKms = options.kms;
-  //     if (options.comeBack) {
-  //       fullKms = options.kms * 2;
-  //     }
-  //     return options.car.consumption * fullKms / 100 * options.price_per_kms / numberOfPayers;
-  //   };
+    console.log('Ugo shouldPay', shouldPay(uPrice))
+    console.log('Julien shouldPay', shouldPay(jPrice))
 
-  //   pricePerPassenger.should.be.equal(shouldPay() * uPassenger.number_per_week);
-  // });
+    // Recurrent case
+    uPrice.should.be.equal(shouldPay(uPassenger.number_per_week));
+    jPrice.should.be.equal(shouldPay(jPassenger.number_per_week));
+    
+    // Once case
+    pricePerPassenger.should.be.equal(shouldPay());
+  });
 });
