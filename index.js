@@ -1,8 +1,10 @@
 'use strict'
 
-const Coco = require("./core/covoit");
-const Carpooling = new Coco();
+const clib = require("./core/covoit");
+const P = new clib();
 
+
+// Build options for a journey
 const options = {
   kms: 35.5,
   price_per_kms: 1.62,
@@ -16,39 +18,33 @@ const options = {
   }
 };
 
-const journey = Carpooling.createJourney(options);
-const passenger = Carpooling.createPassenger('ugo', 5, true);
+// Create a journey
+const journey = P.createJourney(options);
 
-journey.addPassengers(passenger);
+// Create a passenger
+const uPassenger = P.createPassenger({ name: "ugo", age: 28 }, { number_per_week: 5, comeBack: true });
 
-const numberOfPassengers = journey.getPassengers();
+// Add a passenger
+journey.addPassengers(uPassenger)
+const passengersList = journey.passengersList;
+// .. do something with the passengers list
+
+// Get the price per passenger for a journey
 const pricePerPassenger = journey.calculate();
+console.log(`Price per passenger : ${pricePerPassenger}€`);
 
-console.log('User', passenger)
-console.log("Number of passengers", numberOfPassengers);
-console.log("Price per passenger", pricePerPassenger);
-console.log("journey", journey);
+// Get the rounded price per passenger for a journey
+const roundedPricePerPassenger = journey.calculate({ rounded: 2});
+console.log(`Rounded price per passenger : ${roundedPricePerPassenger}€`);
 
-// class journey {
-//   constructor(props){
-//     this.comeBack = props.comeBack;
-//     this.kms = props.kms;
-//   }
-//   set currency(devise){
-//     return this.devise = devise;
-//   }
-//   get bob(){
-//     return this.kms;
-//   }
-// }
+// Get the price for passenger with username === "ugo"
+const passengerName = 'ugo'
+const uPrice = journey.calculate({ passengerName });
+console.log(`Price for ${passengerName} : ${uPrice}€`);
 
-// const j = new journey({
-//   comeBack : true,
-//   kms : 30,
-//   currency: 'euro'
-// })
+// Get the rounded price for passenger with username === "ugo"
+const uRoundedPrice = journey.calculate({ passengerName, rounded: 2 });
+console.log(`Rounded price for ${passengerName} : ${uRoundedPrice}€`);
 
-// j.currency = 'euros'
 
-// console.log('devise', j.devise)
-// console.log('bob', j)
+console.log("All the Journey details", journey);

@@ -11,7 +11,7 @@ const isObject = require("lodash/isObject");
  * @param {{boolean}} comeBack is he going back on the same trip ?
  */
 class Passenger {
-  constructor(details, { number_per_week, comeBack }) {
+  constructor(details, { number_per_week, age, comeBack }) {
       this.name = details.name || undefined;
       this.age = details.age || undefined;
       this.number_per_week = number_per_week || undefined;
@@ -45,32 +45,35 @@ class Journey {
   get passengersList() {
     return this.passengers;
   }
-  get pricePerPassenger() {
-    for (const passenger in this.passengers) {
-      if (this.passengers.hasOwnProperty(passenger)) {
-        const element = this.passengers[passenger];
-        const calc = this.calculate(element.name)
-        // console.log('\n ** calc', { calc, name : element.name});
-        this.passengers.push({ price: calc, name: element.name });
-        // console.log('\n ** el', element);
-      }
-    }
-    console.log("\n ** this.passengers", this.passengers);
-    return;
-  }
   /**
    * Calculate price for a passenger, or globally
-   * @param {string} passengerName 
+   * @param {{string}} passengerName 
+   * @param {{integer}} rounded
+   * @return {integer} price || roundedPrice
    */
-  calculate(passengerName) {
+  calculate(options) {
     this.numberOfPayers = this.passengers.length === 0 ? 1 : this.passengers.length +1;
-    if(passengerName){
-      const pInfos = this.passengers.find(passenger => passenger.name === passengerName)
-      return (this.car.consumption * this.kms / 100 * this.price_per_kms / this.numberOfPayers) * pInfos.number_per_week;
+    
+    const calc = () => this.car.consumption * this.kms / 100 * this.price_per_kms / this.numberOfPayers;
+    const calcForPassenger = pInformations => this.car.consumption * this.kms / 100 * this.price_per_kms / this.numberOfPayers * pInformations.number_per_week;
+    const roundPrice = (price, by) => price.toFixed(by)
+    
+    if (options && options.passengerName !== undefined){
+      const pInformations = this.passengers.find(passenger => passenger.name === options.passengerName);
+      if(options.rounded){
+        const price = calcForPassenger(pInformations);
+        return roundPrice(price, options.rounded);
+      }
+      const price = calcForPassenger(pInformations);
+      return price;
+    }
+    if(options && options.rounded){
+      const price = calc()
+      return roundPrice(price, options.rounded);
     }
     // 5.2 x 328 / 100 * 1.35 / 3
     // PRIXparPASSAGER = CONSO x NKM / 100 * PRIXduL / NBOCCUPANTS
-    return this.car.consumption * this.kms / 100 * this.price_per_kms / this.numberOfPayers;
+    return calc()
   }
 
   /**

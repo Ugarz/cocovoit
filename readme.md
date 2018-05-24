@@ -28,16 +28,24 @@ const options = {
     consumption: 7
   }
 };
+
 // Create a journey
-const journey = Carpooling.createJourney(options);
+const journey = P.createJourney(options);
+
 // Create a passenger
-const passenger = Carpooling.createPassenger('ugo', 5, true);
+const uPassenger = P.createPassenger({ name: "ugo", age: 28 }, { number_per_week: 5, comeBack: true });
+
 // Add a passenger
-journey.addPassengers(passenger);
+journey.addPassengers(uPassenger)
+const passengersList = journey.passengersList;
+
 // Get the passengers of a journey
-const numberOfPassengers = journey.getPassengers();
+const numberOfPassengers = journey.passengersList;
+
 // Get the price per passenger for a journey
 const pricePerPassenger = journey.calculate();
+
+console.log("All the Journey details", journey);
 ```
 See the `server.js` to see more on how to play with the library.
 

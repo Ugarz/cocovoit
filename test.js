@@ -20,7 +20,7 @@ describe("Basic tests", function() {
     uPassenger.number_per_week.should.be.exactly(5).and.be.a.Number();
   });
 
-  it("Should create Cocovoit", function() {
+  it("Should create Journey", function() {
     const options = {
         smoking : false,
         kms: 35.5,
@@ -29,15 +29,15 @@ describe("Basic tests", function() {
         comeBack: true,
         conductor: 'ugo'
     }
-    const cocovoit = P.createJourney(options);
-    cocovoit.should.have.property("passengers", options.passengers);
-    cocovoit.should.have.property("price_per_kms", options.price_per_kms);
-    cocovoit.should.have.property("comeBack", options.comeBack);
-    cocovoit.should.have.property("conductor", options.conductor);
-    cocovoit.should.have.property("kms", options.kms * 2);
+    const journey = P.createJourney(options);
+    journey.should.have.property("passengers", options.passengers);
+    journey.should.have.property("price_per_kms", options.price_per_kms);
+    journey.should.have.property("comeBack", options.comeBack);
+    journey.should.have.property("conductor", options.conductor);
+    journey.should.have.property("kms", options.kms * 2);
   });
   
-  it("Should create and add a passenger to the cocovoit", function() {
+  it("Should create and add a passenger to the journey", function() {
     const options = {
       smoking : false,
       kms: 35.5,
@@ -45,12 +45,12 @@ describe("Basic tests", function() {
       comeBack: true,
       conductor: 'ugo'
     }
-    const cocovoit = P.createJourney(options);
+    const journey = P.createJourney(options);
 
     // Create a passenger
     const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
-    cocovoit.addPassengers(uPassenger)
-    const passengersList = cocovoit.passengersList;
+    journey.addPassengers(uPassenger)
+    const passengersList = journey.passengersList;
     
     // Assert the passenger has been pushed to passengers list
     assert.deepEqual(passengersList[0], uPassenger);
@@ -64,7 +64,7 @@ describe("Basic tests", function() {
     uPassenger.number_per_week.should.be.exactly(5).and.be.a.Number();
   });
   
-  it("Should create and add a bunch of passengers to the cocovoit", function() {
+  it("Should create and add a bunch of passengers to the journey", function() {
     const options = {
       smoking : false,
       kms: 35.5,
@@ -72,13 +72,13 @@ describe("Basic tests", function() {
       comeBack: true,
       conductor: "ugo"
     };
-    const cocovoit = P.createJourney(options);
+    const journey = P.createJourney(options);
 
     const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
     const cPassenger = P.createPassenger({ name: "camille" }, { number_per_week: 3, comeBack: true });
 
-    cocovoit.addPassengers([uPassenger, cPassenger]);
-    const passengersList = cocovoit.passengersList;
+    journey.addPassengers([uPassenger, cPassenger]);
+    const passengersList = journey.passengersList;
 
     assert.deepEqual(passengersList, [uPassenger, cPassenger]);
 
@@ -87,7 +87,7 @@ describe("Basic tests", function() {
     passengersList[0].should.have.property("comeBack");
   });
   
-  it("Should reset the passengers of current cocovoit", function() {
+  it("Should reset the passengers of current journey", function() {
     const options = {
       smoking : false,
       kms: 35.5,
@@ -95,13 +95,13 @@ describe("Basic tests", function() {
       comeBack: true,
       conductor: "ugo"
     };
-    const cocovoit = P.createJourney(options);
+    const journey = P.createJourney(options);
 
     const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
     const cPassenger = P.createPassenger({ name: "camille" }, { number_per_week: 3, comeBack: true });
 
-    cocovoit.addPassengers([uPassenger, cPassenger]);
-    let passengersList = cocovoit.passengersList;
+    journey.addPassengers([uPassenger, cPassenger]);
+    let passengersList = journey.passengersList;
     
     assert.deepEqual(passengersList, [uPassenger, cPassenger]);
     
@@ -110,9 +110,9 @@ describe("Basic tests", function() {
     passengersList[0].should.have.property("comeBack");
     
     // Reset passengers list
-    cocovoit.resetPassengers();
+    journey.resetPassengers();
     
-    passengersList = cocovoit.passengersList;
+    passengersList = journey.passengersList;
     
     passengersList.should.not.have.property("name");
     passengersList.should.not.have.property("number_per_week");
@@ -146,28 +146,29 @@ describe("Operation tests", function() {
     const jPassenger = P.createPassenger({ name: "julien" }, { number_per_week: 2, comeBack: true });
 
     // Create journey
-    const cocovoit = P.createJourney(options);
+    const journey = P.createJourney(options);
     
     // Add passengers to the journey
-    cocovoit.addPassengers([uPassenger, cPassenger, jPassenger]);
-    let passengersList = cocovoit.passengersList;
+    journey.addPassengers([uPassenger, cPassenger, jPassenger]);
+    let passengersList = journey.passengersList;
     
     // Test the passengers list
     assert.deepEqual(passengersList, [uPassenger, cPassenger, jPassenger]);
     
     // Test the passengers list
-    const pricePerPassenger = cocovoit.calculate();
-    const numberOfPayers = cocovoit.numberOfPayers;
+    const pricePerPassenger = journey.calculate();
+    const numberOfPayers = journey.numberOfPayers;
 
     const shouldPay = () => {
       let fullKms = options.kms;
       if (options.comeBack) fullKms = options.kms * 2
-      return (options.car.consumption * fullKms) / 100 * options.price_per_kms / cocovoit.numberOfPayers;
+      return (options.car.consumption * fullKms) / 100 * options.price_per_kms / journey.numberOfPayers;
     }
 
     pricePerPassenger.should.be.equal(shouldPay());
   });
 
+  
   it("Should give the amount per person * number of day", function() {
     const options = {
       smoking : false,
@@ -186,15 +187,17 @@ describe("Operation tests", function() {
     const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
     const jPassenger = P.createPassenger({ name: "julien" }, { number_per_week: 2, comeBack: true });
 
-    const cocovoit = P.createJourney(options);
+    const journey = P.createJourney(options);
     
-    cocovoit.addPassengers([uPassenger, jPassenger]);
+    journey.addPassengers([uPassenger, jPassenger]);
     
-    const pricePerPassenger = cocovoit.calculate();
-    const uPrice = cocovoit.calculate('ugo');
-    const jPrice = cocovoit.calculate('julien');
+    const pricePerPassenger = journey.calculate();
+    const uPrice = journey.calculate({ passengerName: 'ugo' });
+    const jPrice = journey.calculate({ passengerName: 'julien' });
     
-    const numberOfPayers = cocovoit.numberOfPayers;
+    const uPriceRounded = journey.calculate({ passengerName: 'ugo', rounded: 2 });
+    
+    const numberOfPayers = journey.numberOfPayers;
 
     const shouldPay = (passenger) => {
       let fullKms = options.kms;
@@ -209,7 +212,58 @@ describe("Operation tests", function() {
     uPrice.should.be.equal(shouldPay(uPassenger));
     jPrice.should.be.equal(shouldPay(jPassenger));
     
-    // Once case
+    // Once way price case
     pricePerPassenger.should.be.equal(shouldPay());
   });
+  
+  it("Should give the amount per person * number of day rounded", function () {
+    const options = {
+      smoking: false,
+      kms: 35.5,
+      price_per_kms: 1.62,
+      passengers: [],
+      comeBack: true,
+      conductor: "ugo",
+      car: {
+        model: "308",
+        brand: "Peugeot",
+        consumption: 7,
+      }
+    };
+
+    const uPassenger = P.createPassenger({ name: "ugo" }, { number_per_week: 5, comeBack: true });
+    const jPassenger = P.createPassenger({ name: "julien" }, { number_per_week: 2, comeBack: true });
+
+    const journey = P.createJourney(options);
+
+    journey.addPassengers([uPassenger, jPassenger]);
+
+    // One way price
+    const pricePerPassenger = journey.calculate();
+    
+    // A precise Price
+    const uPrice = journey.calculate({ passengerName: 'ugo' });
+    const jPrice = journey.calculate({ passengerName: 'julien' });
+
+    // A 2 decimals rounded Price
+    const uPriceRounded = journey.calculate({ passengerName: 'ugo', rounded: 2 });
+    const jPriceRounded = journey.calculate({ passengerName: 'julien', rounded: 2 });
+
+    const numberOfPayers = journey.numberOfPayers;
+
+    const shouldPay = () => {
+      let fullKms = options.kms;
+      if (options.comeBack) fullKms = options.kms * 2;
+      return options.car.consumption * fullKms / 100 * options.price_per_kms / numberOfPayers;
+    };
+    
+    // Recurrent case
+    uPriceRounded.should.be.equal(uPrice.toFixed(2));
+    jPriceRounded.should.be.equal(jPrice.toFixed(2));
+
+    // Once way price case
+    pricePerPassenger.should.be.equal(shouldPay());
+  });
+
+
 });
