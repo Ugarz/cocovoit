@@ -11,12 +11,12 @@ const isObject = require("lodash/isObject");
  * @param {{boolean}} comeBack is he going back on the same trip ?
  */
 class Passenger {
-    constructor(details, { number_per_week, comeBack }) {
-        this.name = details.name || undefined;
-        this.age = details.age || undefined;
-        this.number_per_week = number_per_week || undefined;
-        this.comeBack = comeBack || false;
-    }
+  constructor(details, { number_per_week, comeBack }) {
+      this.name = details.name || undefined;
+      this.age = details.age || undefined;
+      this.number_per_week = number_per_week || undefined;
+      this.comeBack = comeBack || false;
+  }
 }
 
 /**
@@ -45,23 +45,39 @@ class Journey {
   get passengersList() {
     return this.passengers;
   }
+  get pricePerPassenger() {
+    for (const passenger in this.passengers) {
+      if (this.passengers.hasOwnProperty(passenger)) {
+        const element = this.passengers[passenger];
+        const calc = this.calculate(element.name)
+        // console.log('\n ** calc', { calc, name : element.name});
+        this.passengers.push({ price: calc, name: element.name });
+        // console.log('\n ** el', element);
+      }
+    }
+    console.log("\n ** this.passengers", this.passengers);
+    return;
+  }
   /**
    * Calculate price for a passenger, or globally
-   * @param {string} passengerId 
+   * @param {string} passengerName 
    */
-  calculate(passengerId) {
-    this.numberOfPayers = this.passengers.length === 0 ? 1 : this.passengers.length;
-    if(passengerId){
-      const pInfos = this.passengers.find(pass => pass.name === passengerId)
+  calculate(passengerName) {
+    this.numberOfPayers = this.passengers.length === 0 ? 1 : this.passengers.length +1;
+    if(passengerName){
+      const pInfos = this.passengers.find(passenger => passenger.name === passengerName)
       return (this.car.consumption * this.kms / 100 * this.price_per_kms / this.numberOfPayers) * pInfos.number_per_week;
     }
     // 5.2 x 328 / 100 * 1.35 / 3
     // PRIXparPASSAGER = CONSO x NKM / 100 * PRIXduL / NBOCCUPANTS
     return this.car.consumption * this.kms / 100 * this.price_per_kms / this.numberOfPayers;
   }
+
   /**
-   * 
+   * addPassengers
+   * Add passengers to the Journey
    * @param {array || object} passengers 
+   * @return {object}
    */
   addPassengers(passengers) {
     if(isObject(passengers)){

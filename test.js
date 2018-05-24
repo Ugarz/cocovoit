@@ -109,6 +109,7 @@ describe("Basic tests", function() {
     passengersList[0].should.have.property("number_per_week");
     passengersList[0].should.have.property("comeBack");
     
+    // Reset passengers list
     cocovoit.resetPassengers();
     
     passengersList = cocovoit.passengersList;
@@ -190,37 +191,23 @@ describe("Operation tests", function() {
     cocovoit.addPassengers([uPassenger, jPassenger]);
     
     const pricePerPassenger = cocovoit.calculate();
-    const uPrice = cocovoit.calculate();
-    const jPrice = cocovoit.calculate();
+    const uPrice = cocovoit.calculate('ugo');
+    const jPrice = cocovoit.calculate('julien');
     
     const numberOfPayers = cocovoit.numberOfPayers;
-    
-    const shouldPay = (passenger, price) => {
+
+    const shouldPay = (passenger) => {
       let fullKms = options.kms;
-      if (options.comeBack) {
-        fullKms = options.kms * 2;
-      }
-      if(passenger){
+      if (options.comeBack) fullKms = options.kms * 2;
+      if (passenger) {
         return (options.car.consumption * fullKms / 100 * options.price_per_kms / numberOfPayers) * passenger.number_per_week;
       }
       return options.car.consumption * fullKms / 100 * options.price_per_kms / numberOfPayers;
     };
-    
-    // console.log('uPrice', uPrice)
-    // console.log('jPrice', jPrice)
-
-    // console.log(`uPrice ${uPassenger.number_per_week} fois par semaine`, uPrice * uPassenger.number_per_week)
-    // console.log(`jPrice ${jPassenger.number_per_week} fois par semaine`, jPrice * jPassenger.number_per_week)
-    
-    // console.log('numberOfPayers', numberOfPayers)
-    // console.log('Each passenger should pay', pricePerPassenger)
-    
-    console.log('Ugo shouldPay', shouldPay(uPrice))
-    console.log('Julien shouldPay', shouldPay(jPrice))
 
     // Recurrent case
-    uPrice.should.be.equal(shouldPay(uPassenger.number_per_week));
-    jPrice.should.be.equal(shouldPay(jPassenger.number_per_week));
+    uPrice.should.be.equal(shouldPay(uPassenger));
+    jPrice.should.be.equal(shouldPay(jPassenger));
     
     // Once case
     pricePerPassenger.should.be.equal(shouldPay());

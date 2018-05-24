@@ -4,10 +4,11 @@
   "description": "A simple lib to manage share caring, share the road",
   "main": "covoit.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "./node_modules/.bin/nodemon server.js",
+    "start": "node index.js",
+    "dev": "./node_modules/.bin/nodemon index.js",
     "test": "mocha",
-    "test:live": "mocha -w"
+    "test:live": "mocha -w",
+    "doc": "node server.js"
   },
   "keywords": [],
   "author": "ugo.arzur@gmail.com",
