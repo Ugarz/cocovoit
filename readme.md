@@ -47,7 +47,7 @@ const pricePerPassenger = journey.calculate();
 
 console.log("All the Journey details", journey);
 ```
-See the `server.js` to see more on how to play with the library.
+See in the `examples/` folder to see more ways on how to play with the library.
 
 ## Working on the library
 ```bash

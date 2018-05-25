@@ -1,6 +1,6 @@
 'use strict'
 
-const clib = require("./core/covoit");
+const clib = require("../core/covoit");
 const P = new clib();
 
 
@@ -18,31 +18,28 @@ const options = {
   }
 };
 
-// Create a journey
-const journey = P.createJourney(options);
 
-// Create a passenger
+const journey = P.createJourney(options);
 const uPassenger = P.createPassenger({ name: "ugo", age: 28 }, { number_per_week: 5, comeBack: true });
 
-// Add a passenger
 journey.addPassengers(uPassenger)
 const passengersList = journey.passengersList;
-// .. do something with the passengers list
 
-// Get the price per passenger for a journey
+
+// Calculate price per passenger
 const pricePerPassenger = journey.calculate();
 console.log(`Price per passenger : ${pricePerPassenger}€`);
 
-// Get the rounded price per passenger for a journey
 const roundedPricePerPassenger = journey.calculate({ rounded: 2});
 console.log(`Rounded price per passenger : ${roundedPricePerPassenger}€`);
 
-// Get the price for passenger with username === "ugo"
+
+// Calculate for a passenger
 const passengerName = 'ugo'
+
 const uPrice = journey.calculate({ passengerName });
 console.log(`Price for ${passengerName} : ${uPrice}€`);
 
-// Get the rounded price for passenger with username === "ugo"
 const uRoundedPrice = journey.calculate({ passengerName, rounded: 2 });
 console.log(`Rounded price for ${passengerName} : ${uRoundedPrice}€`);
 
