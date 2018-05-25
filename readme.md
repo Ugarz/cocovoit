@@ -53,8 +53,8 @@ See in the `examples/` folder to see more ways on how to play with the library.
 ```bash
 git clone git@github.com:Ugarz/cocovoit.git
 cd cocovoit
-npm start          // Run the server
-npm run dev        // Run the dev server (require nodemon in global)
+npm start          // Run the example code
+npm run dev        // Run a live server to play around (you can edit examples/example-1.js in live mode)
 npm test           // Run the tests
 npm run test:live  // Run the tests, live
 ```

@@ -5,7 +5,7 @@
   "main": "covoit.js",
   "scripts": {
     "start": "node examples/example-1.js",
-    "dev": "./node_modules/.bin/nodemon index.js",
+    "dev": "./node_modules/.bin/nodemon examples/example-1.js",
     "test": "mocha",
     "test:live": "mocha -w",
     "doc": "node server.js"
