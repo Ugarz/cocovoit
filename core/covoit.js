@@ -100,7 +100,7 @@ class Journey {
 }
 
 /**
- * Cocovoit
+ * Accessor Class Cocovoit
  */
 class Cocovoit {
   createPassenger(name, number_per_week, comeBack) {
