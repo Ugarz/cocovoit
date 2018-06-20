@@ -1,5 +1,7 @@
 # Simple carpooling library
-This is a simple test of a carpooling library, built with node and some ♥.
+This is a simple test of a carpooling library, built with node and some ♥. 
+
+![](https://travis-ci.org/Ugarz/cocovoit.svg?branch=master)
 
 - [Mocha Documentation](https://mochajs.org/)
 - [Shouldjs - Site Documentation](https://shouldjs.github.io/#assertion-be)
