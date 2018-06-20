@@ -3,7 +3,3 @@ rvm:
  - 2.2
  - jruby
  - rbx-3
- notifications:
-  slack: koding-progress:Bbt4UdvgGME6Q3qJwgOwHx9W
-    on_success: always
-    on_failure: always
