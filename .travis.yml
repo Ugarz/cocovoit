@@ -1,9 +1,16 @@
 language: node_js
 node_js:
-  - "node"
-  - "10.0.0"
-
+- node
+- 10.0.0
 before_script:
-  - npm install
+- npm install
 script:
-  - npm test
+- npm test
+notifications:
+  slack:
+    secure: bSJImE7ObZ+T9wUe9Sy132NuM5I+oczc17PccJFyiiCBBP2A98qataC8Hk+Y+pZOuLdGASQUzOTlKAhTF7wHUfbKpvv7FC4qcf3E1X9pOSJiv7E+ssAyXUBsXrkOFwRKKAQ4iBoHXEGUG2iUfks/ThonSNxP7rGbWkbYp8vuxptNkwuE5TO6DORFCJGqJNpPD7gkAgqs/2INIeROh/Fgm4w0vBuE4suVc2G0mC0ZTDKAGHYjzVNM71q9yfmdFrK1ikKx3WGKPXTOFrRBBPRHwEpSgRpL7kvM8S7K6gld6zJ/hytGZtSHDcKKe+bdwTkHhm8gl62u9zPtM+ufHqtkh3+qaKG6EVbjXjRrz2ARcx8W/ah1vHKYtUIKlMDaFkTwk98SCbcWB1U/SQR0CGKlYwQ3cGTYrdh1WBDegIPaaNuL0wn/uPHcO5j9hZWIzX1WSl/SGPR+yWmM0KVN38sRW+M84m0UwyFuDsxf049WgM/K0WMYbU+Mb8T56liCS0WtLXaafSlEUuHOT2/j0UKh1MXUeXzgVdoeMc/cmMcM86HFBUsVGh5PnhhADTLaln94t+9an0CznQqfMq3ZWqZfduwu4zHI1yUo8OWeTXKfG3W5S46eC2p6gcZyAOqCUtese/N8jsQENujLAzDKN8l4fq20H+AMiF8A09DmC9DL0T4=
+  email:
+    recipients:
+    - ugo.arzur@gmail.com
+    on_success: change
+    on_failure: always
