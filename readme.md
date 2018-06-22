@@ -8,7 +8,7 @@ This is a simple test of a carpooling library, built with node and some ♥.
 - [Shouldjs - Github Documentation](https://github.com/shouldjs/should.js)
 
 Resources 
-- [Calcul selon caroulepourvous.com/](http://www.caroulepourvous.com/info-4.php)
+- [Calcul according to caroulepourvous.com](http://www.caroulepourvous.com/info-4.php)
 
 ## Working with the library
 This library is a simple project to build something (re)usable with tests.
