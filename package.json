@@ -15,7 +15,7 @@
     "npm": "~5.5.1"
   },
   "url": "https://github.com/Ugarz/cocovoit",
-  "keywords": [],
+  "keywords": ["car-pooling", "car", "blabla", "lib"],
   "author": "ugo.arzur@gmail.com",
   "license": "ISC",
   "dependencies": {},
