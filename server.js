@@ -1,1 +1,0 @@
-console.log('have to code something for a nice documentation')
