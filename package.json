@@ -15,6 +15,7 @@
     "node": ">=9.2.1 <10.0.0",
     "npm": "~5.5.1"
   },
+  "url": "https://github.com/Ugarz/cocovoit",
   "keywords": [],
   "author": "ugo.arzur@gmail.com",
   "license": "ISC",
