@@ -32,10 +32,10 @@ const options = {
 };
 
 // Create a journey
-const journey = P.createJourney(options);
+const journey = Carpooling.createJourney(options);
 
 // Create a passenger
-const uPassenger = P.createPassenger({ name: "ugo", age: 28 }, { number_per_week: 5, comeBack: true });
+const uPassenger = Carpooling.createPassenger({ name: "ugo", age: 28 }, { number_per_week: 5, comeBack: true });
 
 // Add a passenger
 journey.addPassengers(uPassenger)
