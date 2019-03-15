@@ -7,7 +7,8 @@
     "start": "node examples/example-1.js",
     "dev": "./node_modules/.bin/nodemon examples/example-1.js",
     "test": "mocha",
-    "test:live": "mocha -w"
+    "test:live": "mocha -w",
+    "doc": "./node_modules/.bin/jsdoc --readme ./README.md core/covoit.js"
   },
   "url": "https://github.com/Ugarz/cocovoit",
   "keywords": [
@@ -22,6 +23,7 @@
     "lodash": "^4.17.11"
   },
   "devDependencies": {
+    "jsdoc": "^3.5.5",
     "mocha": "^5.0.5",
     "nodemon": "^1.17.3",
     "should": "^13.2.1"

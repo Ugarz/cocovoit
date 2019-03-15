@@ -1,3 +1,25 @@
+/**
+ * @license
+ * Copyright (c) 2015 Example Corporation Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 const find = require('lodash/find')
 const isArray = require("lodash/isArray");
 const random = require("lodash/random");
@@ -23,7 +45,7 @@ class Passenger {
  * Journey class
  * @param {{string}} conductor conductor's name for the journey
  * @param {{integer}} kms the kilometers of the journey
- * @param {{array || object}} passengers the passengers list
+ * @param {{object}} passengers the passengers list
  * @param {{integer}} price_per_kms the price that cost a kilometer according the fuel
  * @param {{boolean}} comeBack object with data
  * @param {{boolean}} smoking is smoking allowed ?
@@ -79,7 +101,9 @@ class Journey {
   /**
    * addPassengers
    * Add passengers to the Journey
-   * @param {array || object} passengers 
+   * @description Add a passenger to the journey
+   * @param {object} passengers 
+   * @throws {BAD_REQUEST} passengers should be an object or an array of objects.
    * @return {object}
    */
   addPassengers(passengers) {
