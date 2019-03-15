@@ -1,5 +1,5 @@
 # Simple carpooling library
-This is a simple test of a carpooling library, built with node and some ♥. 
+This is a simple library to manage carpooling, built with node and some ♥. 
 
 ![](https://travis-ci.org/Ugarz/cocovoit.svg?branch=master)
 
