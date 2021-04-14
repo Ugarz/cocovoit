@@ -1,5 +1,5 @@
 # Simple carpooling library
-This is a simple library to manage carpooling, built with node and some ♥. 
+This is a simple library to manage carpooling, built with node and some ♥.
 
 ![](https://travis-ci.org/Ugarz/cocovoit.svg?branch=master)
 
@@ -7,7 +7,7 @@ This is a simple library to manage carpooling, built with node and some ♥.
 - [Shouldjs - Site Documentation](https://shouldjs.github.io/#assertion-be)
 - [Shouldjs - Github Documentation](https://github.com/shouldjs/should.js)
 
-Resources 
+Resources
 - [Calcul according to caroulepourvous.com](http://www.caroulepourvous.com/info-4.php)
 
 ## Working with the library
@@ -59,6 +59,8 @@ npm start          // Run the example code
 npm run dev        // Run a live server to play around (you can edit examples/example-1.js in live mode)
 npm test           // Run the tests
 npm run test:live  // Run the tests, live
+npm run doc        // Generate the documentation in `out/` folder
+npm serve          // Serve the documentation in http://localhost:5000
 ```
 
 [![Cocovoit - Les Lopez](https://cdn.koreus.com/thumbshigh/201703/les-lopez-cocovoit.jpg)](https://youtu.be/3EnE9FylZXg)
