@@ -1,6 +1,6 @@
 {
   "name": "cocovoit",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A simple lib to manage share caring, share the road",
   "main": "covoit.js",
   "scripts": {
