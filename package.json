@@ -20,10 +20,10 @@
   "author": "ugo.arzur@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "jsdoc": "^3.5.5",
+    "jsdoc": "^3.6.6",
     "mocha": "^5.0.5",
     "nodemon": "^1.17.3",
     "should": "^13.2.1"
